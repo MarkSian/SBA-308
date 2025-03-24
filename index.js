@@ -111,9 +111,10 @@ const learnerSubmissions = [
 // 2. the function should include try/catch to handle any errors that may occur. ###
 // 3. use an arrow function to create the function. const functionName = (parameter) => {function body} ###
 // 4. STEP 1: Validation for Assignment Group *the assignmentGroup must match the courseInfo. id:451 ###
+// 5. STEP 2: Filter the Due Assignments *Only assignments that are due should be included in the calculations. Account for assignments with future due dates. ###
 
 
-const getLeranerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
+const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
     try {
         console.log("Step 1: Validating assignmentGroup");
         if (assignmentGroup.course_id !== courseInfo.id) {
@@ -127,4 +128,4 @@ const getLeranerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
     }
 
 };
-console.log(getLeranerData(courseInfo, assignmentGroup, learnerSubmissions));
+console.log(getLearnerData(courseInfo, assignmentGroup, learnerSubmissions));
