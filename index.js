@@ -156,11 +156,14 @@ const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
                 const pointsPossible = assignment.points_possible;
                 let score = submission.submission.score;
 
-                console.log("Learner ID: ", learnerID);
-                console.log("Assignment ID: ", assignmentID);
-                console.log("Points Possible: ", pointsPossible);
-                console.log("Score: ", score);
+                console.log(`Calclating submission for learner ${learnerID} for assignment ${assignmentID}`);
+
+                // Prevents scores being divided by 0.
+                if (pointsPossible === 0) {
+                    throw new Error("Points possible for an assignment cannot be 0");
+                }
             }
+
 
         }
 
