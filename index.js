@@ -112,10 +112,14 @@ const learnerSubmissions = [
 // 3. use an arrow function to create the function. const functionName = (parameter) => {function body} ###
 // 4. STEP 1: Validation for Assignment Group *the assignmentGroup must match the courseInfo. id:451 ###
 // 5. STEP 2: Filter the Due Assignments *Only assignments that are due should be included in the calculations. Account for assignments with future due dates. ###
-// 6. STEP 3: Calculate Learner submssions *Process learner scores and handle cases of late submissions.
+// 6. STEP 3: Calculate Learner submssions *Process learner scores and handle cases of late submissions. ###
+// 7. STEP 4: Weighted Scores *Calculate the weighted averages for each learner.
 
 // *Turning an assignment early: Does not get evaluated as the due date is not the current date or has passed. ###
 // *Turning an assignment late: The score is reduced by 10% of the total points possible. ### we only have one late assignement for learner 132.
+// Create an result array that is initialized as an empty array to store the object of learner data.
+// *avg = learnerData.totalScore / learnerData.totalPoints * 100
+
 
 const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
     try {
@@ -196,6 +200,8 @@ const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
 
         }
         console.log("Processing:", learnerDataMap);
+
+        console.log("Step 4: Calculating Weighted Scores");
 
         return { message: "assignmentGroup is valid", data: { courseInfo, assignmentGroup, learnerSubmissions } };
     } catch (error) {
