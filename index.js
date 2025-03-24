@@ -173,6 +173,9 @@ const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
                     // (140 - 15 = 125) score is 125
                     console.log("Score with late penalty:", score);
                 }
+                // Convert the score to a percentage.
+                const scorePercentage = (score / pointsPossible) * 100;
+                console.log("Official Score:", scorePercentage);
             }
 
 
