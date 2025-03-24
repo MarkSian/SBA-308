@@ -114,8 +114,8 @@ const learnerSubmissions = [
 // 5. STEP 2: Filter the Due Assignments *Only assignments that are due should be included in the calculations. Account for assignments with future due dates. ###
 // 6. STEP 3: Calculate Learner submssions *Process learner scores and handle cases of late submissions.
 
-// *Turning an assignment early: Does not get evaluated as the due date is not the current date or has passed.
-// *Turning an assignment late: The score is reduced by 10% of the total points possible for each day it is late.
+// *Turning an assignment early: Does not get evaluated as the due date is not the current date or has passed. ###
+// *Turning an assignment late: The score is reduced by 10% of the total points possible. ### we only have one late assignement for learner 132.
 
 const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
     try {
@@ -161,6 +161,17 @@ const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
                 // Prevents scores being divided by 0.
                 if (pointsPossible === 0) {
                     throw new Error("Points possible for an assignment cannot be 0");
+                }
+                // converts the date strings of assignment due date and the submitted date to date objects for comparison.
+                const dateSubmitted = new Date(submission.submission.submitted_at);
+                const dueDate = new Date(assignment.due_at);
+                // if the dateSubmitted is greater than the dueDate, the submission is late.
+                if (dateSubmitted > dueDate) {
+                    console.log("Submission is late");
+                    // handles the late penalty math
+                    score -= 0.1 * pointsPossible;
+                    // (140 - 15 = 125) score is 125
+                    console.log("Score with late penalty:", score);
                 }
             }
 
