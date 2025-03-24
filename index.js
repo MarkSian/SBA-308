@@ -121,6 +121,10 @@ const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
             throw new Error("assignmentGroup ID does not match courseInfo ID");
         }
         console.log("assignmentGroup is valid");
+
+        console.log("Step 2: Filtering Due Assignments");
+        const currentDate = new Date();
+        console.log("currentDate: ", currentDate);
         return { message: "assignmentGroup is valid", data: { courseInfo, assignmentGroup, learnerSubmissions } };
     } catch (error) {
         console.error("error in step 1: ", error.message);
