@@ -175,7 +175,7 @@ const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
                 }
                 // Convert the score to a percentage.
                 const scorePercentage = (score / pointsPossible) * 100;
-                console.log("Official Score:", scorePercentage);
+                console.log(`Official Score:${scorePercentage}% `);
             }
 
 
