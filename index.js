@@ -144,7 +144,7 @@ const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
         console.log("Step 3: Calculate Learner Submissions");
         // A new map object that will store learner data.
         // Will use learner_id as the key to access their scores and submission data..
-        const learnerData = new Map();
+        const learnerDataMap = new Map();
         // Iterates over learnerSubmissions. learnerSubmission data is assigned to the variable submission.
         for (const submission of learnerSubmissions) {
             // .find method is used to match the assignment_id from the submission variable to the assignment_id of the dueAssignments or assignmentGroup.
@@ -176,8 +176,8 @@ const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
                 // Convert the score to a percentage.
                 const scorePercentage = (score / pointsPossible) * 100;
                 console.log(`Official Score:${scorePercentage}% `);
-            }
 
+            }
 
         }
 
