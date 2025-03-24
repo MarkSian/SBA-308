@@ -23,16 +23,10 @@
 // learnerSubmission: an object that contains information a student's submsssion and grade
 // learnerSubmission = { "learner_id": number, "assignment_id": number, "submission":{ "submitted_at": Date string, "score": number,}}
 
-/* Checklist */
-// 1. create a function that takes in courseInfo, assignmentGroup, and learnerSubmissions as arguments. 
-// 2. the function should include try/catch to handle any errors that may occur.
-// 3. use an arrow function to create the function. const functionName = (parameter) => {function body}
 
 
 
-const getLeranerData = (courseInfo, assignmentGroup, learnerSubmissions) {
 
-}
 
 /* Provided Data */
 // cousrInfo, assignmentGroup, learnerSubmissions are passed in as arguments within the function
@@ -112,3 +106,25 @@ const learnerSubmissions = [
 ];
 
 
+/* Checklist */
+// 1. create a function that takes in courseInfo, assignmentGroup, and learnerSubmissions as arguments. ###
+// 2. the function should include try/catch to handle any errors that may occur. ###
+// 3. use an arrow function to create the function. const functionName = (parameter) => {function body} ###
+// 4. STEP 1: Validation for Assignment Group *the assignmentGroup must match the courseInfo. id:451 ###
+
+
+const getLeranerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
+    try {
+        console.log("Step 1: Validating assignmentGroup");
+        if (assignmentGroup.course_id !== courseInfo.id) {
+            throw new Error("assignmentGroup ID does not match courseInfo ID");
+        }
+        console.log("assignmentGroup is valid");
+        return { message: "assignmentGroup is valid", data: { courseInfo, assignmentGroup, learnerSubmissions } };
+    } catch (error) {
+        console.error("error in step 1: ", error.message);
+        return [];
+    }
+
+};
+console.log(getLeranerData(courseInfo, assignmentGroup, learnerSubmissions));
