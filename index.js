@@ -117,14 +117,26 @@ const learnerSubmissions = [
 const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
     try {
         console.log("Step 1: Validating assignmentGroup");
+        // Check if the assignmentGroup ID matches the courseInfo ID
         if (assignmentGroup.course_id !== courseInfo.id) {
+            // If we fail the validation, we throw an error.
             throw new Error("assignmentGroup ID does not match courseInfo ID");
-        }
+        }// Passing the validation will pass this message in the console.
         console.log("assignmentGroup is valid");
 
         console.log("Step 2: Filtering Due Assignments");
+        // A variable that stores the current date object.
         const currentDate = new Date();
+        // A variable that stores the assignments from the assignmentGroup that are due.
+        // The filter method will iterate through the assignments and return only the assignments that are due before the current date.
+        // The due_at is a string from the assignmentInfo object and needs to be converted to a date object for comparison to currentDate.
+        // Should return two assignments and ignore the third assignment 1000 years in the future.
+        const dueAssignments = assignmentGroup.assignments.filter(assignments => {
+            const dueDate = new Date(assignments.due_at);
+            return dueDate <= currentDate;
+        })
         console.log("currentDate: ", currentDate);
+        console.log("Assignment Due Date:", dueAssignments);
         return { message: "assignmentGroup is valid", data: { courseInfo, assignmentGroup, learnerSubmissions } };
     } catch (error) {
         console.error("error in step 1: ", error.message);
