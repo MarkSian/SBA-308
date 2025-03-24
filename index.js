@@ -113,12 +113,12 @@ const learnerSubmissions = [
 // 4. STEP 1: Validation for Assignment Group *the assignmentGroup must match the courseInfo. id:451 ###
 // 5. STEP 2: Filter the Due Assignments *Only assignments that are due should be included in the calculations. Account for assignments with future due dates. ###
 // 6. STEP 3: Calculate Learner submssions *Process learner scores and handle cases of late submissions. ###
-// 7. STEP 4: Weighted Scores *Calculate the weighted averages for each learner.
+// 7. STEP 4: Weighted Scores *Calculate the weighted averages for each learner. ###
 
 // *Turning an assignment early: Does not get evaluated as the due date is not the current date or has passed. ###
 // *Turning an assignment late: The score is reduced by 10% of the total points possible. ### we only have one late assignement for learner 132.
-// Create an result array that is initialized as an empty array to store the object of learner data.
-// *avg = learnerData.totalScore / learnerData.totalPoints * 100
+// Create an result array that is initialized as an empty array to store the object of learner data. ###
+// *avg = learnerData.totalScore / learnerData.totalPoints * 100 ###
 
 
 const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
@@ -202,12 +202,40 @@ const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
         console.log("Processing:", learnerDataMap);
 
         console.log("Step 4: Calculating Weighted Scores");
+        // result array containing the final report for each learner.
+        const result = [];
+        // For loop iterates over the learnerDataMap
+        // learnerDataMap.entries() returns an array of key value pairs: [learnerID (id), learnerData(contains scores and points)]
+        for (const [learnerID, learnerData] of learnerDataMap.entries()) {
+            if (learnerData.totalPoints === 0) continue; // Loop control (continue): Skip if no points are available.
+            // Calculates the average field for the final report.  (converted to a percentage)
+            const avg = learnerData.totalScore / learnerData.totalPoints * 100;
+            // implemented the spread operator to include the remaining key and values from leanererData.scores
+            // .push the object to the result array.
+            result.push({
+                id: learnerID,
+                avg: avg,
+                ...learnerData.scores
+            });
+        }
+        console.log("Final Report:", result);
 
-        return { message: "assignmentGroup is valid", data: { courseInfo, assignmentGroup, learnerSubmissions } };
+        return result;
     } catch (error) {
-        console.error("error in step 1: ", error.message);
+        console.error("Error: ", error.message);
         return [];
     }
 
 };
 console.log(getLearnerData(courseInfo, assignmentGroup, learnerSubmissions));
+
+// log result:
+// Step 4: Calculating Weighted Scores
+// Final Report: [ *learner 125
+//   { '1': 94, '2': 100, id: 125, avg: 98.5 },
+//   { '1': 78, '2': 83.33333333333334, id: 132, avg: 82 }
+// ]
+// [ *learner 132
+//   { '1': 94, '2': 100, id: 125, avg: 98.5 },
+//   { '1': 78, '2': 83.33333333333334, id: 132, avg: 82 }
+// ]
