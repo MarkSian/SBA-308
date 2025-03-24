@@ -112,7 +112,10 @@ const learnerSubmissions = [
 // 3. use an arrow function to create the function. const functionName = (parameter) => {function body} ###
 // 4. STEP 1: Validation for Assignment Group *the assignmentGroup must match the courseInfo. id:451 ###
 // 5. STEP 2: Filter the Due Assignments *Only assignments that are due should be included in the calculations. Account for assignments with future due dates. ###
+// 6. STEP 3: Calculate Learner submssions *Process learner scores and handle cases of late submissions.
 
+// *Turning an assignment early: Does not get evaluated as the due date is not the current date or has passed.
+// *Turning an assignment late: The score is reduced by 10% of the total points possible for each day it is late.
 
 const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
     try {
@@ -137,6 +140,30 @@ const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
         })
         console.log("currentDate: ", currentDate);
         console.log("Assignment Due Date:", dueAssignments);
+
+        console.log("Step 3: Calculate Learner Submissions");
+        // A new map object that will store learner data.
+        // Will use learner_id as the key to access their scores and submission data..
+        const learnerData = new Map();
+        // Iterates over learnerSubmissions. learnerSubmission data is assigned to the variable submission.
+        for (const submission of learnerSubmissions) {
+            // .find method is used to match the assignment_id from the submission variable to the assignment_id of the dueAssignments or assignmentGroup.
+            const assignment = dueAssignments.find(assignment => assignment.id === submission.assignment_id);
+            // If statemetn to validate if the assignment exists.
+            if (assignment) {
+                const learnerID = submission.learner_id;
+                const assignmentID = assignment.id;
+                const pointsPossible = assignment.points_possible;
+                let score = submission.submission.score;
+
+                console.log("Learner ID: ", learnerID);
+                console.log("Assignment ID: ", assignmentID);
+                console.log("Points Possible: ", pointsPossible);
+                console.log("Score: ", score);
+            }
+
+        }
+
         return { message: "assignmentGroup is valid", data: { courseInfo, assignmentGroup, learnerSubmissions } };
     } catch (error) {
         console.error("error in step 1: ", error.message);
