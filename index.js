@@ -176,10 +176,26 @@ const getLearnerData = (courseInfo, assignmentGroup, learnerSubmissions) => {
                 // Convert the score to a percentage.
                 const scorePercentage = (score / pointsPossible) * 100;
                 console.log(`Official Score:${scorePercentage}% `);
-
+                // If a learnerID does not exist in the map, create a new object with the learnerID as the key.
+                if (!learnerDataMap.has(learnerID)) {
+                    // Initialize the totalScore, totalPoints, and scores.
+                    learnerDataMap.set(learnerID, {
+                        id: learnerID,
+                        totalScore: 0,
+                        totalPoints: 0,
+                        scores: {}
+                    });
+                }
+                // Access the learnerData object from the map.
+                const learnerData = learnerDataMap.get(learnerID);
+                // Update these fields with data from the submission details.
+                learnerData.totalScore += score;
+                learnerData.totalPoints += pointsPossible;
+                learnerData.scores[assignmentID] = scorePercentage;
             }
 
         }
+        console.log("Processing:", learnerDataMap);
 
         return { message: "assignmentGroup is valid", data: { courseInfo, assignmentGroup, learnerSubmissions } };
     } catch (error) {
